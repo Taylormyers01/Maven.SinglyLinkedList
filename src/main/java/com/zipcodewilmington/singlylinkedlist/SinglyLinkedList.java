@@ -45,7 +45,6 @@ public class SinglyLinkedList{
     public static <T> SinglyLinkedList remove(SinglyLinkedList list, T data){
         Node currentNode = list.head;
         Node holdNode = null;
-
         if(currentNode.data == data){
             currentNode = currentNode.next;
             list.head = currentNode;
@@ -66,41 +65,73 @@ public class SinglyLinkedList{
     }
 
     public static <T> boolean contains(SinglyLinkedList list, T data){
-        Node currentNode = list.head;
-        if(currentNode.data == data){
-            currentNode = currentNode.next;
-            list.head = currentNode;
-            return true;
-        }
-        while(currentNode.next != null){
-            if(currentNode.next.data == data){
-                return true;
-            }
-            currentNode = currentNode.next;
-        }
-        return false;
+        if(find(list, data) == -1)
+            return false;
+        return true;
     }
     public static <T> int find(SinglyLinkedList list, T data){
         Node currentNode = list.head;
         int index = 1;
-
         if(currentNode.data == data){
-            return index;
+            return 0;
         }
-        if(contains(list, data)){
-            while(currentNode.next != null){
-                if(currentNode.next.data == data){
-                    return index;
-                }
-                currentNode = currentNode.next;
-                index++;
+        while(currentNode.next != null){
+            if(currentNode.next.data == data){
+                return index;
             }
+            currentNode = currentNode.next;
+            index++;
         }
         return -1;
     }
 
     public static int size(SinglyLinkedList list){
-        return 0;
+        Node currentNode = list.head;
+        int count = 1;
+        while(currentNode.next != null){
+            count++;
+            currentNode = currentNode.next;
+        }
+        return count;
+    }
+
+    public static <T> T get(SinglyLinkedList list, int index){
+        int position = 0;
+        Node currentNode = list.head;
+        while(position <index){
+            currentNode = currentNode.next;
+            position++;
+        }
+        return (T)currentNode.data;
+    }
+
+    public static SinglyLinkedList copy(SinglyLinkedList list){
+        SinglyLinkedList newList = new SinglyLinkedList();
+        Node currentNode = list.head;
+        while(currentNode.next != null){
+            newList = add(newList, currentNode.data);
+            currentNode =currentNode.next;
+        }
+        return add(newList, currentNode.data);
+    }
+    public static SinglyLinkedList sort(SinglyLinkedList list){
+        SinglyLinkedList newList = new SinglyLinkedList();
+        Node currentNode;
+        Node compare;
+        while(size(list)> 1){
+            currentNode = list.head;
+            compare = list.head;
+            while(currentNode != null){
+                if((Integer)currentNode.data - (Integer) compare.data < (Integer) compare.data - (Integer) currentNode.data){
+                    compare = currentNode;
+                }
+                currentNode = currentNode.next;
+            }
+            newList = add(newList, compare.data);
+            list = remove(list, compare.data);
+
+        }
+        return add(newList, list.head.data);
     }
 }
 

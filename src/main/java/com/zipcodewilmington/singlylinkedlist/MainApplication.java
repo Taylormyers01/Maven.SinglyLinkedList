@@ -11,10 +11,9 @@ public class MainApplication {
         SinglyLinkedList testingList = new SinglyLinkedList();
         testingList = add(testingList, 5);
         testingList = add(testingList, 10);
-        testingList = add(testingList, 11);
-        testingList = add(testingList, 12);
-        printList(testingList);
-        System.out.println(find(testingList, 12));
+        testingList = add(testingList, 4);
+        testingList = add(testingList, 6);
+        System.out.println(printList(sort(testingList)));
 
     }
 
